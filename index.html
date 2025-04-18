@@ -6,14 +6,27 @@
 </head>
 <body>
   <h1>Billiards Score</h1>
-  <input type="number" id="scoreInput" placeholder="Enter score">
-  <button onclick="submitScore()">Submit</button>
+
+  <div>
+    <label>Your Score:</label>
+    <input type="number" id="yourScore" placeholder="0">
+  </div>
+
+  <div>
+    <label>Opponent Score:</label>
+    <input type="number" id="opponentScore" placeholder="0">
+  </div>
+
+  <button onclick="submitScores()">Submit</button>
+
   <p id="scoreDisplay"></p>
 
   <script>
-    function submitScore() {
-      const score = document.getElementById('scoreInput').value;
-      document.getElementById('scoreDisplay').innerText = `Score is: ${score}`;
+    function submitScores() {
+      const yourScore = document.getElementById('yourScore').value || 0;
+      const opponentScore = document.getElementById('opponentScore').value || 0;
+      document.getElementById('scoreDisplay').innerText =
+        `You: ${yourScore} | Opponent: ${opponentScore}`;
     }
   </script>
 </body>
