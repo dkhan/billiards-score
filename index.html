@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Billiards Score</title>
+</head>
+<body>
+  <h1>Billiards Score</h1>
+  <input type="number" id="scoreInput" placeholder="Enter score">
+  <button onclick="submitScore()">Submit</button>
+  <p id="scoreDisplay"></p>
+
+  <script>
+    function submitScore() {
+      const score = document.getElementById('scoreInput').value;
+      document.getElementById('scoreDisplay').innerText = `Score is: ${score}`;
+    }
+  </script>
+</body>
+</html>
+
