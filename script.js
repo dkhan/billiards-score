@@ -1,9 +1,16 @@
+// --- State
 let yourScore = 0;
 let opponentScore = 0;
 
+// --- DOM References
 const yourScoreEl = document.getElementById('yourScore');
 const opponentScoreEl = document.getElementById('opponentScore');
 
+// --- Constants
+const LONG_PRESS_DURATION = 600;
+const SWIPE_THRESHOLD = 30;
+
+// --- Core Logic
 function updateScores() {
   yourScoreEl.innerText = yourScore;
   opponentScoreEl.innerText = opponentScore;
@@ -34,11 +41,8 @@ function resetBoth() {
 }
 
 function handleTap(e, side) {
-  const box = e.currentTarget;
-  const scoreEl = box.querySelector('.score');
-  const boxRect = box.getBoundingClientRect();
+  const scoreEl = e.currentTarget.querySelector('.score');
   const scoreRect = scoreEl.getBoundingClientRect();
-
   const clickY = e.clientY;
 
   if (clickY <= scoreRect.bottom) {
@@ -48,6 +52,7 @@ function handleTap(e, side) {
   }
 }
 
+// --- Event Handling
 function addListeners(id, side) {
   const el = document.getElementById(id);
   let startY = null;
@@ -67,14 +72,13 @@ function addListeners(id, side) {
       longPressTimer = setTimeout(() => {
         resetBoth();
         cancelClick = true;
-      }, 600);
+      }, LONG_PRESS_DURATION);
     } else if (e.touches.length === 1) {
       startY = e.touches[0].clientY;
-
       longPressTimer = setTimeout(() => {
         resetSide(side);
         cancelClick = true;
-      }, 600);
+      }, LONG_PRESS_DURATION);
     }
   });
 
@@ -86,7 +90,7 @@ function addListeners(id, side) {
       const endY = e.changedTouches[0].clientY;
       const deltaY = endY - startY;
 
-      if (Math.abs(deltaY) > 30) {
+      if (Math.abs(deltaY) > SWIPE_THRESHOLD) {
         adjustScore(side, deltaY < 0 ? 'up' : 'down');
         cancelClick = true;
       }
@@ -100,17 +104,17 @@ function addListeners(id, side) {
     longPressTimer = null;
   });
 
-  // Right-click to reset side (for desktop testing only)
   el.addEventListener('contextmenu', (e) => {
     e.preventDefault();
     resetSide(side);
   });
 }
 
+// --- Initialization
 addListeners('yourScoreBox', 'left');
 addListeners('opponentScoreBox', 'right');
 
-// Prevent scrolling when swiping
-document.addEventListener('touchmove', function (e) {
+// --- Global: Prevent screen scroll on swipe
+document.addEventListener('touchmove', (e) => {
   e.preventDefault();
 }, { passive: false });
