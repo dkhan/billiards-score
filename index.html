@@ -21,6 +21,8 @@
       font-family: sans-serif;
     }
     html, body {
+      overscroll-behavior: none;           /* prevents bounce on supported browsers */
+      touch-action: none;                  /* disables default gestures */
       height: 100%;
       margin: 0;
       padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
@@ -191,6 +193,11 @@
 
     addListeners('yourScoreBox', 'left');
     addListeners('opponentScoreBox', 'right');
+
+    // Prevent scrolling when swiping
+    document.addEventListener('touchmove', function (e) {
+      e.preventDefault();
+    }, { passive: false });
   </script>
 </body>
 </html>
