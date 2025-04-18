@@ -13,19 +13,6 @@
     html, body {
       height: 100%;
     }
-    .reset-button {
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 2em;
-      cursor: pointer;
-      z-index: 10;
-      color: #333;
-      background: rgba(255, 255, 255, 0.7);
-      padding: 5px 10px;
-      border-radius: 10px;
-    }
     .container {
       display: flex;
       height: 100vh;
@@ -55,7 +42,6 @@
   </style>
 </head>
 <body>
-  <div class="reset-button" onclick="resetScores()">♻️</div>
 
   <div class="container">
     <div id="yourScoreBox" class="half left">
@@ -70,15 +56,12 @@
     let yourScore = 0;
     let opponentScore = 0;
 
-    function updateScores() {
-      document.getElementById('yourScore').innerText = yourScore;
-      document.getElementById('opponentScore').innerText = opponentScore;
-    }
+    const yourScoreEl = document.getElementById('yourScore');
+    const opponentScoreEl = document.getElementById('opponentScore');
 
-    function resetScores() {
-      yourScore = 0;
-      opponentScore = 0;
-      updateScores();
+    function updateScores() {
+      yourScoreEl.innerText = yourScore;
+      opponentScoreEl.innerText = opponentScore;
     }
 
     function adjustScore(side, direction) {
@@ -90,6 +73,21 @@
       updateScores();
     }
 
+    function resetSide(side) {
+      if (side === 'left') {
+        yourScore = 0;
+      } else if (side === 'right') {
+        opponentScore = 0;
+      }
+      updateScores();
+    }
+
+    function resetBoth() {
+      yourScore = 0;
+      opponentScore = 0;
+      updateScores();
+    }
+
     function handleTap(e, side) {
       const box = e.currentTarget;
       const scoreEl = box.querySelector('.score');
@@ -98,7 +96,6 @@
 
       const clickY = e.clientY;
 
-      // If clicked within or above the score element — increment
       if (clickY <= scoreRect.bottom) {
         adjustScore(side, 'up');
       } else {
@@ -109,23 +106,52 @@
     function addListeners(id, side) {
       const el = document.getElementById(id);
       let startY = null;
+      let longPressTimer = null;
 
       el.addEventListener('click', (e) => handleTap(e, side));
 
       el.addEventListener('touchstart', (e) => {
-        startY = e.touches[0].clientY;
+        if (e.touches.length === 2) {
+          // Two-finger long press
+          longPressTimer = setTimeout(() => {
+            resetBoth();
+          }, 600);
+        } else if (e.touches.length === 1) {
+          startY = e.touches[0].clientY;
+
+          longPressTimer = setTimeout(() => {
+            resetSide(side);
+          }, 600);
+        }
       });
 
       el.addEventListener('touchend', (e) => {
-        const endY = e.changedTouches[0].clientY;
-        if (startY === null) return;
-        const deltaY = endY - startY;
+        clearTimeout(longPressTimer);
+        longPressTimer = null;
 
-        if (Math.abs(deltaY) > 30) {
-          adjustScore(side, deltaY < 0 ? 'up' : 'down');
+        // swipe handling
+        if (startY !== null && e.changedTouches.length === 1) {
+          const endY = e.changedTouches[0].clientY;
+          const deltaY = endY - startY;
+
+          if (Math.abs(deltaY) > 30) {
+            adjustScore(side, deltaY < 0 ? 'up' : 'down');
+          }
+
+          startY = null;
         }
+      });
 
-        startY = null;
+      el.addEventListener('touchmove', () => {
+        // Cancel long press on movement
+        clearTimeout(longPressTimer);
+        longPressTimer = null;
+      });
+
+      // Right-click to reset side (for desktop testing only)
+      el.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        resetSide(side);
       });
     }
 
