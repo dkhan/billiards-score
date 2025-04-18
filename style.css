@@ -1,0 +1,52 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  overscroll-behavior: none;           /* prevents bounce on supported browsers */
+  touch-action: none;                  /* disables default gestures */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  background: black;
+}
+
+body {
+  position: absolute;
+  inset: 0;
+}
+
+.container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: env(safe-area-inset-top);
+  right: env(safe-area-inset-right);
+  bottom: env(safe-area-inset-bottom);
+  left: env(safe-area-inset-left);
+  text-align: center;
+}
+
+.half {
+  flex: 1;
+  position: relative;
+  background: gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.left {
+  background-color: green;
+}
+
+.right {
+  background-color: red;
+}
+
+.score {
+  font-size: 6em;
+  color: white;
+  pointer-events: none;
+  user-select: none; /* Prevent text selection */
+  -webkit-user-select: none; /* Safari on iOS */
+}
