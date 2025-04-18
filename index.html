@@ -39,7 +39,6 @@
       font-size: 6em;
       color: white;
       user-select: none;
-      cursor: pointer;
     }
     .left {
       background-color: green;
@@ -53,8 +52,8 @@
   <div class="reset-button" onclick="resetScores()">♻️</div>
 
   <div class="container">
-    <div id="yourScore" class="half left">0</div>
-    <div id="opponentScore" class="half right">0</div>
+    <div id="yourScoreBox" class="half left">0</div>
+    <div id="opponentScoreBox" class="half right">0</div>
   </div>
 
   <script>
@@ -62,8 +61,8 @@
     let opponentScore = 0;
 
     function updateScores() {
-      document.getElementById('yourScore').innerText = yourScore;
-      document.getElementById('opponentScore').innerText = opponentScore;
+      document.getElementById('yourScoreBox').innerText = yourScore;
+      document.getElementById('opponentScoreBox').innerText = opponentScore;
     }
 
     function resetScores() {
@@ -72,15 +71,25 @@
       updateScores();
     }
 
-    document.getElementById('yourScore').addEventListener('click', () => {
-      yourScore++;
-      updateScores();
-    });
+    function handleTap(e, side) {
+      const boxHeight = e.target.clientHeight;
+      const clickY = e.clientY;
 
-    document.getElementById('opponentScore').addEventListener('click', () => {
-      opponentScore++;
+      const isTopHalf = clickY < boxHeight / 2;
+
+      if (side === 'left') {
+        if (isTopHalf) yourScore++;
+        else yourScore = Math.max(0, yourScore - 1);
+      } else if (side === 'right') {
+        if (isTopHalf) opponentScore++;
+        else opponentScore = Math.max(0, opponentScore - 1);
+      }
+
       updateScores();
-    });
+    }
+
+    document.getElementById('yourScoreBox').addEventListener('click', (e) => handleTap(e, 'left'));
+    document.getElementById('opponentScoreBox').addEventListener('click', (e) => handleTap(e, 'right'));
   </script>
 </body>
 </html>
