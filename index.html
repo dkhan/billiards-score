@@ -3,32 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <title>Billiards Score</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+    }
+    body, html {
+      height: 100%;
+    }
+    .container {
+      display: flex;
+      height: 100vh;
+      text-align: center;
+    }
+    .half {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 6em;
+      color: white;
+      user-select: none;
+      cursor: pointer;
+    }
+    .left {
+      background-color: green;
+    }
+    .right {
+      background-color: red;
+    }
+  </style>
 </head>
 <body>
-  <h1>Billiards Score</h1>
-
-  <div>
-    <label>Your Score:</label>
-    <input type="number" id="yourScore" placeholder="0">
+  <div class="container">
+    <div id="yourScore" class="half left">0</div>
+    <div id="opponentScore" class="half right">0</div>
   </div>
-
-  <div>
-    <label>Opponent Score:</label>
-    <input type="number" id="opponentScore" placeholder="0">
-  </div>
-
-  <button onclick="submitScores()">Submit</button>
-
-  <p id="scoreDisplay"></p>
 
   <script>
-    function submitScores() {
-      const yourScore = document.getElementById('yourScore').value || 0;
-      const opponentScore = document.getElementById('opponentScore').value || 0;
-      document.getElementById('scoreDisplay').innerText =
-        `You: ${yourScore} | Opponent: ${opponentScore}`;
-    }
+    let yourScore = 0;
+    let opponentScore = 0;
+
+    document.getElementById('yourScore').addEventListener('click', () => {
+      yourScore++;
+      document.getElementById('yourScore').innerText = yourScore;
+    });
+
+    document.getElementById('opponentScore').addEventListener('click', () => {
+      opponentScore++;
+      document.getElementById('opponentScore').innerText = opponentScore;
+    });
   </script>
 </body>
 </html>
-
