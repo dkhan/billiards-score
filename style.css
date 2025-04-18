@@ -35,6 +35,17 @@ body {
   touch-action: manipulation;
 }
 
+.half {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;         /* Ensure vertical fill */
+  width: 100%;          /* Just in case */
+  user-select: none;
+  touch-action: manipulation;
+}
+
 .left {
   background-color: green;
 }
@@ -44,12 +55,13 @@ body {
 }
 
 .score {
-  font-size: 10em;
-  font-weight: 600;
+  font-size: 8em;
+  /* font-weight: 600; */
   color: white;
   pointer-events: none;
   user-select: none; /* Prevent text selection */
   -webkit-user-select: none; /* Safari on iOS */
+  line-height: 1;       /* Prevent vertical offset */
 }
 
 body, .score {
