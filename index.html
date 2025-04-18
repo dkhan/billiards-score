@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <title>Billiards Score</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Enable fullscreen on iOS when added to Home Screen -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -22,10 +22,24 @@
     }
     html, body {
       height: 100%;
+      margin: 0;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+      background: black;
+    }
+
+    body {
+      position: absolute;
+      inset: 0;
     }
     .container {
       display: flex;
-      height: 100vh;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: env(safe-area-inset-top);
+      right: env(safe-area-inset-right);
+      bottom: env(safe-area-inset-bottom);
+      left: env(safe-area-inset-left);
       text-align: center;
     }
     .half {
@@ -51,6 +65,7 @@
       user-select: none; /* Prevent text selection */
       -webkit-user-select: none; /* Safari on iOS */
     }
+
   </style>
 </head>
 <body>
