@@ -13,6 +13,19 @@
     body, html {
       height: 100%;
     }
+    .reset-button {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2em;
+      cursor: pointer;
+      z-index: 10;
+      color: #333;
+      background: rgba(255, 255, 255, 0.7);
+      padding: 5px 10px;
+      border-radius: 10px;
+    }
     .container {
       display: flex;
       height: 100vh;
@@ -37,6 +50,8 @@
   </style>
 </head>
 <body>
+  <div class="reset-button" onclick="resetScores()">♻️</div>
+
   <div class="container">
     <div id="yourScore" class="half left">0</div>
     <div id="opponentScore" class="half right">0</div>
@@ -46,14 +61,25 @@
     let yourScore = 0;
     let opponentScore = 0;
 
+    function updateScores() {
+      document.getElementById('yourScore').innerText = yourScore;
+      document.getElementById('opponentScore').innerText = opponentScore;
+    }
+
+    function resetScores() {
+      yourScore = 0;
+      opponentScore = 0;
+      updateScores();
+    }
+
     document.getElementById('yourScore').addEventListener('click', () => {
       yourScore++;
-      document.getElementById('yourScore').innerText = yourScore;
+      updateScores();
     });
 
     document.getElementById('opponentScore').addEventListener('click', () => {
       opponentScore++;
-      document.getElementById('opponentScore').innerText = opponentScore;
+      updateScores();
     });
   </script>
 </body>
