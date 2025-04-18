@@ -27,30 +27,25 @@ A minimalistic, mobile-friendly web app for tracking billiards scores.
 
 ## 🌍 Live Demo
 
-You can use the app directly via GitHub Pages:
-
 **https://dkhan.github.io/billiards-score/**
 
 ---
 
 ## 📦 Deploying to GitHub Pages
 
-To publish your own fork or updates:
-
 1. Push your changes to the `main` branch.
-2. Go to **Repo Settings** → **Pages**.
-3. Under **Source**, choose:
+2. Go to **Settings** → **Pages**.
+3. Under **Source**, select:
    - Branch: `main`
    - Folder: `/ (root)`
-4. Click **Save** — GitHub will provide your public URL.
+4. Click **Save**. GitHub will give you a public URL.
 
 ---
 
 ## 📱 Install as an App (Optional)
 
-If you're on iPhone or Android:  
-1. Open the app in a browser  
-2. Tap “Share” → “Add to Home Screen” to install it as a pseudo-native app
+1. Open the live demo in a mobile browser  
+2. Tap “Share” → “Add to Home Screen” to install it like a native app
 
 ---
 
@@ -61,6 +56,34 @@ If you're on iPhone or Android:
 - Works offline  
 - Touch gestures for intuitive scoring  
 - Right-click and keyboard fallback for development
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! To contribute:
+
+1. Fork this repository
+2. Clone your fork:
+
+   git clone https://github.com/YOUR_USERNAME/billiards-score.git  
+   cd billiards-score
+
+3. Create a new branch:
+
+   git checkout -b feature/my-feature-name
+
+4. Make your changes and commit:
+
+   git commit -m "Add my awesome feature"
+
+5. Push to your fork:
+
+   git push origin feature/my-feature-name
+
+6. Open a Pull Request on [GitHub](https://github.com/dkhan/billiards-score/pulls)
+
+Please keep your contributions focused and well-documented 🙏
 
 ---
 
